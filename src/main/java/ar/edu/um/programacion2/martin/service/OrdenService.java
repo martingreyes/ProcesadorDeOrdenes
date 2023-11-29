@@ -4,6 +4,12 @@ import ar.edu.um.programacion2.martin.domain.Orden;
 import ar.edu.um.programacion2.martin.repository.OrdenRepository;
 import ar.edu.um.programacion2.martin.service.dto.OrdenDTO;
 import ar.edu.um.programacion2.martin.service.mapper.OrdenMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +48,29 @@ public class OrdenService {
         Orden orden = ordenMapper.toEntity(ordenDTO);
         orden = ordenRepository.save(orden);
         return ordenMapper.toDto(orden);
+    }
+
+    public void deleteAll() {
+        log.debug("Request para borrar todas las Ordenes");
+        ordenRepository.deleteAll();
+    }
+
+    public List<Orden> findOrdenesNullByModo(String modo) {
+        log.debug("Request to get all Ordenes with estado Pendiente");
+        List<Orden> ordenes = ordenRepository.findOrdenesNullByModo(modo);
+        return ordenes;
+    }
+
+    public List<Orden> findOrdenesByFilters(Boolean procesamiento, Long clienteId, Long accionId, Instant fechaInicio, Instant fechaFin) {
+        return ordenRepository.findOrdenesByFilters(procesamiento, clienteId, accionId, fechaInicio, fechaFin);
+    }
+
+    public List<Orden> findOrdenesProcesadasByFilters(Long clienteId, Long accionId) {
+        return ordenRepository.findOrdenesProcesadasByFilters(clienteId, accionId);
+    }
+
+    public List<Orden> findOrdenesNoProcesadasByFilters(Long clienteId, Long accionId) {
+        return ordenRepository.findOrdenesNoProcesadasByFilters(clienteId, accionId);
     }
 
     /**
@@ -108,5 +137,47 @@ public class OrdenService {
     public void delete(Long id) {
         log.debug("Request to delete Orden : {}", id);
         ordenRepository.deleteById(id);
+    }
+
+    public OrdenDTO toDTO(Orden orden) {
+        OrdenDTO ordenDTO = new OrdenDTO();
+        ordenDTO.setId(orden.getId());
+        ordenDTO.setCliente(orden.getCliente());
+        ordenDTO.setAccionId(orden.getAccionId());
+        ordenDTO.setAccion(orden.getAccion());
+        ordenDTO.setOperacion(orden.getOperacion());
+        ordenDTO.setPrecio(orden.getPrecio());
+        ordenDTO.setCantidad(orden.getCantidad());
+        ordenDTO.setFechaOperacion(orden.getFechaOperacion());
+        ordenDTO.setModo(orden.getModo());
+        ordenDTO.setAnalisis(orden.getAnalisis());
+        ordenDTO.setProcesamiento(orden.getProcesamiento());
+        ordenDTO.setDescripcion(orden.getDescripcion());
+
+        return ordenDTO;
+    }
+
+    public JsonNode toJson(Orden orden) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode jsonNode = objectMapper.createObjectNode();
+
+        jsonNode.put("cliente", orden.getCliente());
+        jsonNode.put("accionId", orden.getAccionId());
+        jsonNode.put("accion", orden.getAccion());
+        jsonNode.put("operacion", orden.getOperacion());
+        jsonNode.put("cantidad", orden.getCantidad());
+        jsonNode.put("precio", orden.getPrecio());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'").withZone(ZoneId.of("UTC"));
+        String formattedString = formatter.format(orden.getFechaOperacion());
+        jsonNode.put("fechaOperacion", formattedString);
+        jsonNode.put("modo", orden.getModo());
+        if (orden.getProcesamiento() != null && orden.getProcesamiento()) {
+            jsonNode.put("operacionExitosa", true);
+        } else {
+            jsonNode.put("operacionExitosa", false);
+        }
+        jsonNode.put("operacionObservaciones", orden.getDescripcion());
+
+        return jsonNode;
     }
 }

@@ -15,10 +15,10 @@
 
 logging:
   level:
-    ROOT: DEBUG
-    tech.jhipster: DEBUG
-    org.hibernate.SQL: DEBUG
-    ar.edu.um.programacion2.martin: DEBUG
+    ROOT: INFO
+    tech.jhipster: INFO
+    org.hibernate.SQL: INFO
+    ar.edu.um.programacion2.martin: INFO
 
 eureka:
   instance:
@@ -119,7 +119,7 @@ jhipster:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
         base64-secret: ZjFhODdmZjQ2ZDNkMzA0NGExZjJlMWJiNjk4Zjc3OTdjYzE3ZTNlN2JmYWE4OTU3OTBlZTM0YmZiZjkxNGUxOTRiZDJjNzA0OTA4OGUyNWZiNTI1MWVhMGRhMzcyYWY0MmIwN2FlYmE5ZTcxMzViMTI0OGU0NWEzZWZkY2Y5MmE=
         # Token is valid 24 hours
-        token-validity-in-seconds: 86400
+        token-validity-in-seconds: 2592000
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
     base-url: http://127.0.0.1:8080

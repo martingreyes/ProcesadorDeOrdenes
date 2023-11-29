@@ -198,6 +198,16 @@ info:
 # Full reference is available at: https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
+miapp:
+  token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJ0aW5yZXllcyIsImF1dGgiOiJST0xFX1VTRVIiLCJleHAiOjE3Mjk2ODg3ODV9.6yeagJAm9m8cV_gjHu8e6UPlTkdS8iqkX4_GlvwKrqshcpIqs6URQFyBAYI2uEKgiW6Zvn5E5x6HEhPDkecQVg
+  url-ordenes-local: http://127.0.0.1:5000/api/ordenes/ordenes
+  url-ordenes: http://192.168.194.254:8000/api/ordenes/ordenes
+  url-clientes: http://192.168.194.254:8000/api/clientes/
+  url-acciones: http://192.168.194.254:8000/api/acciones/
+  url-cantidad: http://192.168.194.254:8000/api/reporte-operaciones/consulta_cliente_accion?
+  url-ultimovalor: http://192.168.194.254:8000/api/acciones/ultimovalor/
+  url-reportar: http://192.168.194.254:8000/api/reporte-operaciones/reportar
+
 jhipster:
   clientApp:
     name: 'procesadorDeOrdenesApp'
