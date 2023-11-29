@@ -1,0 +1,34 @@
+{
+  "procesadorDeOrdenesApp": {
+    "orden": {
+      "home": {
+        "title": "Ordens",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Orden",
+        "createOrEditLabel": "Crear o editar Orden",
+        "notFound": "Ningún Ordens encontrado"
+      },
+      "created": "Un nuevo Orden ha sido creado con el identificador {{ param }}",
+      "updated": "Un Orden ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Orden ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Orden {{ id }}?"
+      },
+      "detail": {
+        "title": "Orden"
+      },
+      "id": "ID",
+      "cliente": "Cliente",
+      "accionId": "Accion Id",
+      "accion": "Accion",
+      "operacion": "Operacion",
+      "precio": "Precio",
+      "cantidad": "Cantidad",
+      "fechaOperacion": "Fecha Operacion",
+      "modo": "Modo",
+      "analisis": "Analisis",
+      "procesamiento": "Procesamiento",
+      "descripcion": "Descripcion"
+    }
+  }
+}

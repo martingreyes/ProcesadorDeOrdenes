@@ -1,0 +1,56 @@
+{
+  "changelogDate": "20231129174308",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "cliente",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "accionId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "accion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "operacion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "precio",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "cantidad",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fechaOperacion",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "modo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "analisis",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "procesamiento",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "descripcion",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "Orden",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}
