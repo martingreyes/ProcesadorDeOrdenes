@@ -114,7 +114,6 @@ public class CatedraService {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             log.info("GET " + url + " : " + response.statusCode());
-            log.info(response.body());
             String jsonResponse = response.body();
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(jsonResponse);

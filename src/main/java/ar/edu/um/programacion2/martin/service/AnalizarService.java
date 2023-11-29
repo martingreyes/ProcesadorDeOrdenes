@@ -94,7 +94,6 @@ public class AnalizarService {
             orden.setDescripcion(orden.getDescripcion() + "Una orden instantánea no puede ejecutarse fuera del horario de transacciones. ");
             valido = false;
         }
-
         return valido;
     }
 
