@@ -1,0 +1,8 @@
+{
+  "generator-jhipster:7.9.3": {
+    "promptValues": {
+      "packageName": "ar.edu.um.programacion2.martin",
+      "nativeLanguage": "es"
+    }
+  }
+}
