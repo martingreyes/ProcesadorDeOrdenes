@@ -166,8 +166,8 @@ public class OrdenResource {
     @Secured("ROLE_USER")
     public ResponseEntity<List<Orden>> findOrdenesByFilters(
         @PathVariable("procesamiento") Integer procesamientoInt,
-        @RequestParam(name = "clienteId", required = false) Long clienteId,
-        @RequestParam(name = "accionId", required = false) Long accionId,
+        @RequestParam(required = false) Long cliente,
+        @RequestParam(required = false) Long accionId,
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant fechaInicio,
         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant fechaFin
     ) {
@@ -179,7 +179,8 @@ public class OrdenResource {
         } else {
             log.info("REST para ver las ordenes procesadas");
         }
-        List<Orden> ordenes = ordenService.findOrdenesByFilters(procesamiento, clienteId, accionId, fechaInicio, fechaFin);
+
+        List<Orden> ordenes = ordenService.findOrdenesByFilters(procesamiento, cliente, accionId, fechaInicio, fechaFin);
         return ResponseEntity.ok(ordenes);
     }
 

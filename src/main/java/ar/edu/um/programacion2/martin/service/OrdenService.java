@@ -57,20 +57,28 @@ public class OrdenService {
 
     public List<Orden> findOrdenesNullByModo(String modo) {
         log.debug("Request to get all Ordenes with estado Pendiente");
-        List<Orden> ordenes = ordenRepository.findOrdenesNullByModo(modo);
+        List<Orden> ordenes = ordenRepository.findByModoAndAnalisisIsNull(modo);
         return ordenes;
     }
 
-    public List<Orden> findOrdenesByFilters(Boolean procesamiento, Long clienteId, Long accionId, Instant fechaInicio, Instant fechaFin) {
-        return ordenRepository.findOrdenesByFilters(procesamiento, clienteId, accionId, fechaInicio, fechaFin);
-    }
-
-    public List<Orden> findOrdenesProcesadasByFilters(Long clienteId, Long accionId) {
-        return ordenRepository.findOrdenesProcesadasByFilters(clienteId, accionId);
-    }
-
-    public List<Orden> findOrdenesNoProcesadasByFilters(Long clienteId, Long accionId) {
-        return ordenRepository.findOrdenesNoProcesadasByFilters(clienteId, accionId);
+    public List<Orden> findOrdenesByFilters(Boolean procesamiento, Long cliente, Long accionId, Instant fechaInicio, Instant fechaFin) {
+        if (cliente == null && accionId == null && fechaFin == null && fechaInicio != null) {
+            return ordenRepository.findByProcesamientoAndFechaOperacionAfter(procesamiento, fechaInicio);
+        } else if (cliente == null && accionId == null && fechaInicio == null && fechaFin != null) {
+            return ordenRepository.findByProcesamientoAndFechaOperacionBefore(procesamiento, fechaFin);
+        } else if (cliente == null && accionId == null && fechaInicio != null && fechaFin != null) {
+            return ordenRepository.findByProcesamientoAndFechaOperacionBetween(procesamiento, fechaInicio, fechaFin);
+        } else if (cliente != null && accionId != null && fechaInicio == null && fechaFin == null) {
+            return ordenRepository.findByProcesamientoAndClienteAndAccionId(procesamiento, cliente, accionId);
+        } else {
+            return ordenRepository.findByProcesamientoAndClienteAndAccionIdAndFechaOperacionBetween(
+                procesamiento,
+                cliente,
+                accionId,
+                fechaInicio,
+                fechaFin
+            );
+        }
     }
 
     /**

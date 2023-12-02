@@ -15,34 +15,40 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface OrdenRepository extends JpaRepository<Orden, Long> {
-    @Query(value = "SELECT * FROM Orden WHERE modo = :modo AND analisis IS NULL", nativeQuery = true)
-    List<Orden> findOrdenesNullByModo(@Param("modo") String modo);
+    // @Query(value = "SELECT * FROM Orden WHERE modo = :modo AND analisis IS NULL", nativeQuery = true)
+    // List<Orden> findOrdenesNullByModo(@Param("modo") String modo);
 
-    @Query(
-        "SELECT o FROM Orden o " +
-        "WHERE (:procesamiento IS NULL OR o.procesamiento = :procesamiento) " +
-        "AND (:clienteId IS NULL OR o.cliente = :clienteId) " +
-        "AND (:accionId IS NULL OR o.accionId = :accionId) " +
-        "AND (:fechaInicio IS NULL OR o.fechaOperacion >= :fechaInicio) " +
-        "AND (:fechaFin IS NULL OR o.fechaOperacion <= :fechaFin)"
-    )
-    List<Orden> findOrdenesByFilters(
-        @Param("procesamiento") Boolean procesamiento,
-        @Param("clienteId") Long clienteId,
-        @Param("accionId") Long accionId,
-        @Param("fechaInicio") Instant fechaInicio,
-        @Param("fechaFin") Instant fechaFin
+    List<Orden> findByModoAndAnalisisIsNull(String modo);
+
+    // @Query(
+    //     "SELECT o FROM Orden o " +
+    //     "WHERE (:procesamiento IS NULL OR o.procesamiento = :procesamiento) " +
+    //     "AND (:clienteId IS NULL OR o.cliente = :clienteId) " +
+    //     "AND (:accionId IS NULL OR o.accionId = :accionId) " +
+    //     "AND (:fechaInicio IS NULL OR o.fechaOperacion >= :fechaInicio) " +
+    //     "AND (:fechaFin IS NULL OR o.fechaOperacion <= :fechaFin)"
+    // )
+    // List<Orden> findOrdenesByFilters(
+    //     @Param("procesamiento") Boolean procesamiento,
+    //     @Param("clienteId") Long clienteId,
+    //     @Param("accionId") Long accionId,
+    //     @Param("fechaInicio") Instant fechaInicio,
+    //     @Param("fechaFin") Instant fechaFin
+    // );
+
+    List<Orden> findByProcesamientoAndClienteAndAccionIdAndFechaOperacionBetween(
+        Boolean procesamiento,
+        Long cliente,
+        Long accionId,
+        Instant fechaInicio,
+        Instant fechaFin
     );
 
-    @Query(
-        value = "SELECT * FROM Orden WHERE procesamiento = true AND (:clienteId IS NULL OR cliente = :clienteId) AND (:accionId IS NULL OR accion_id = :accionId)",
-        nativeQuery = true
-    )
-    List<Orden> findOrdenesProcesadasByFilters(@Param("clienteId") Long clienteId, @Param("accionId") Long accionId);
+    List<Orden> findByProcesamientoAndFechaOperacionBetween(Boolean procesamiento, Instant fechaInicio, Instant fechaFin);
 
-    @Query(
-        value = "SELECT * FROM Orden WHERE procesamiento = false AND (:clienteId IS NULL OR cliente = :clienteId) AND (:accionId IS NULL OR accion_id = :accionId)",
-        nativeQuery = true
-    )
-    List<Orden> findOrdenesNoProcesadasByFilters(@Param("clienteId") Long clienteId, @Param("accionId") Long accionId);
+    List<Orden> findByProcesamientoAndFechaOperacionAfter(Boolean procesamiento, Instant fechaInicio);
+
+    List<Orden> findByProcesamientoAndFechaOperacionBefore(Boolean procesamiento, Instant fechaFin);
+
+    List<Orden> findByProcesamientoAndClienteAndAccionId(Boolean procesamiento, Long cliente, Long accionId);
 }
