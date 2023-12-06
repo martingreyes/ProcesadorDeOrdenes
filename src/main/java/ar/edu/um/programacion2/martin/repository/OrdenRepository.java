@@ -20,21 +20,21 @@ public interface OrdenRepository extends JpaRepository<Orden, Long> {
 
     List<Orden> findByModoAndAnalisisIsNull(String modo);
 
-    // @Query(
-    //     "SELECT o FROM Orden o " +
-    //     "WHERE (:procesamiento IS NULL OR o.procesamiento = :procesamiento) " +
-    //     "AND (:clienteId IS NULL OR o.cliente = :clienteId) " +
-    //     "AND (:accionId IS NULL OR o.accionId = :accionId) " +
-    //     "AND (:fechaInicio IS NULL OR o.fechaOperacion >= :fechaInicio) " +
-    //     "AND (:fechaFin IS NULL OR o.fechaOperacion <= :fechaFin)"
-    // )
-    // List<Orden> findOrdenesByFilters(
-    //     @Param("procesamiento") Boolean procesamiento,
-    //     @Param("clienteId") Long clienteId,
-    //     @Param("accionId") Long accionId,
-    //     @Param("fechaInicio") Instant fechaInicio,
-    //     @Param("fechaFin") Instant fechaFin
-    // );
+    @Query(
+        "SELECT o FROM Orden o " +
+        "WHERE (:procesamiento IS NULL OR o.procesamiento = :procesamiento) " +
+        "AND (:clienteId IS NULL OR o.cliente = :clienteId) " +
+        "AND (:accionId IS NULL OR o.accionId = :accionId) " +
+        "AND (:fechaInicio IS NULL OR o.fechaOperacion >= :fechaInicio) " +
+        "AND (:fechaFin IS NULL OR o.fechaOperacion <= :fechaFin)"
+    )
+    List<Orden> findOrdenesByFilters(
+        @Param("procesamiento") Boolean procesamiento,
+        @Param("clienteId") Long clienteId,
+        @Param("accionId") Long accionId,
+        @Param("fechaInicio") Instant fechaInicio,
+        @Param("fechaFin") Instant fechaFin
+    );
 
     List<Orden> findByProcesamientoAndClienteAndAccionIdAndFechaOperacionBetween(
         Boolean procesamiento,

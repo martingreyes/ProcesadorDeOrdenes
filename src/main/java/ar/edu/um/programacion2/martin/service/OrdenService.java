@@ -79,6 +79,10 @@ public class OrdenService {
                 fechaFin
             );
         }
+        // else {
+        //     return ordenRepository.findOrdenesByFilters(procesamiento, cliente, accionId, fechaInicio, fechaFin);
+        // }
+
     }
 
     /**
